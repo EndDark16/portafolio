@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --canvas: #08090c;
+  --ink: #f2f0eb;
+  --accent: #8b5cf6;
+  --accent-fg: #c4b5fd;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--canvas);
+}
+
+body {
+  min-width: 320px;
+  margin: 0;
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(139, 92, 246, 0.4);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-fg);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@layer components {
+  .page-shell {
+    width: min(100% - 2rem, 1160px);
+    margin-inline: auto;
+  }
+
+  @media (min-width: 640px) {
+    .page-shell {
+      width: min(100% - 3rem, 1160px);
+    }
+  }
+
+  .section-anchor {
+    scroll-margin-top: 4.5rem;
+  }
+
+  /* Availability indicator: solid dot + one quiet ring, no glow */
+  .status-dot {
+    position: relative;
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 9999px;
+    background: #10b981;
+  }
+
+  .status-dot::after {
+    content: "";
+    position: absolute;
+    inset: -3px;
+    border-radius: 9999px;
+    border: 1px solid rgba(16, 185, 129, 0.55);
+    animation: status-ring 2.4s ease-out infinite;
+  }
+}
+
+@keyframes status-ring {
+  from {
+    opacity: 0.9;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.8);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
